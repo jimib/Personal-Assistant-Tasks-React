@@ -41,7 +41,7 @@ class {{name}}Component extends PixelComponent{
 			{JSON.stringify(data)}
 			{/*FOR ITEMS*/}
 			{_.map(items, (item,index) => {
-				return <li>{JSON.stringify(item);}</li>;
+				return <li>{JSON.stringify(item)}</li>;
 			})}
 		</div>)
 	}
