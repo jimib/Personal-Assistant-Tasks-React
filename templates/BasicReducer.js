@@ -2,7 +2,7 @@ import util from 'util';
 
 import {
 	/*INJECT:IMPORT_ACTION_TYPE*/
-} from './{{name}}Actions';
+} from '../actions/{{name}}Actions';
 
 import {
 	CreateReducer, AddItem, UpdateItem, RemoveItem

@@ -32,9 +32,9 @@ task( `Add Action/Reducer` )
 		//do something about this
 		return Promise.mapSeries( _.filter([
 			() => assistant.template( `${DIR_CLIENT}/redux/index.js`, '../templates/Reducers.js', options ).catch( err => null ),
-			_.includes( includes, ACTION ) ? () => assistant.template( `${DIR_CLIENT}/redux/${name}Actions.js`, '../templates/BasicActions.js', options ) : null,
-			_.includes( includes, REDUCER ) ? () => assistant.template( `${DIR_CLIENT}/redux/${name}Reducer.js`, '../templates/BasicReducer.js', options ) : null,
-			_.includes( includes, REDUCER ) ? () => assistant.editCodeBlock( `${DIR_CLIENT}/redux/${name}Reducer.js`, 'INIT_STATE', {language:'javascript'} ) : null
+			_.includes( includes, ACTION ) ? () => assistant.template( `${DIR_CLIENT}/redux/actions/${name}Actions.js`, '../templates/BasicActions.js', options ) : null,
+			_.includes( includes, REDUCER ) ? () => assistant.template( `${DIR_CLIENT}/redux/reducers/${name}Reducer.js`, '../templates/BasicReducer.js', options ) : null,
+			_.includes( includes, REDUCER ) ? () => assistant.editCodeBlock( `${DIR_CLIENT}/redux/reducers/${name}Reducer.js`, 'INIT_STATE', {language:'javascript'} ) : null
 		]), handler => handler() )
 		.then( () => {
 			return {tasks:{type:'react',options:{name}}};
