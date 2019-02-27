@@ -5,7 +5,7 @@ import {
 } from './{{name}}Actions';
 
 import {
-	CreateReducer
+	CreateReducer, AddItem, UpdateItem, RemoveItem
 } from '../utils/ReducerUtil';
 
 /*START:INIT_STATE*/
