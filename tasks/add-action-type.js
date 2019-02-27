@@ -55,7 +55,10 @@ task( `Add Action-Type` )
 				const options = {id,name,NAME,nameCamelCased};
 
 				return Promise.mapSeries([
-					() => assistant.insertCodeBlock( `${DIR_CLIENT}/redux/${id}Actions.js`, 'CONST_ACTION_TYPE', `export const ${NAME} = "${NAME}"` ),
+					() => {
+						return assistant.render( '../templates/BasicActionConst.js', options )
+						.then( code => assistant.insertCodeBlock( `${DIR_CLIENT}/redux/${id}Actions.js`, 'CONST_ACTION_TYPE', code ) )
+					},
 					() => {
 						return assistant.render( '../templates/BasicActionFunc.js', options )
 						.then( code => assistant.insertCodeBlock( `${DIR_CLIENT}/redux/${id}Actions.js`, 'ACTION', code ) )
