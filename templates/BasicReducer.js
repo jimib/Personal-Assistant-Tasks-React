@@ -2,7 +2,7 @@ import util from 'util';
 
 import {
 	/*INJECT:IMPORT_ACTION_TYPE*/
-} from '../constants/ActionsConstants';
+} from './{{name}}Actions';
 
 import {
 	CreateReducer

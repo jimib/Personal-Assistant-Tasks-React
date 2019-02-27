@@ -6,7 +6,7 @@ const DIR_CLIENT = './client';
 
 task( `Add Action-Type` )
 .then( (assistant, options = {}) => {
-	return assistant.list(`${DIR_CLIENT}/actions`,{extensions:['.js']})
+	return assistant.list(`${DIR_CLIENT}/redux`,{extensions:['.js']})
 	.then( results => {
 		const regexpActionId = /([a-zA-Z0-9]+)Action[s]?.js+/;
 		const items = _.filter( _.map( results, name => {
@@ -53,24 +53,17 @@ task( `Add Action-Type` )
 				const nameCamelCased = _.camelCase( NAME );
 	
 				const options = {id,name,NAME,nameCamelCased};
-				
+
 				return Promise.mapSeries([
-					//this is optional - ignore errors
-					() => assistant.template( `${DIR_CLIENT}/constants/ActionsConstants.js`, '../templates/ActionsConstants.js', options ).catch( err => null ),
-					//continue as you were
-					() => {
-						return assistant.render( '../templates/ActionsConstantsItem.js', options )
-						.then( code => assistant.append( `${DIR_CLIENT}/constants/ActionsConstants.js`, code ));
-					},
-					() => assistant.insertCodeBlock( `${DIR_CLIENT}/actions/${id}Actions.js`, 'IMPORT_ACTION_TYPE', `\t${NAME},` ),
+					() => assistant.insertCodeBlock( `${DIR_CLIENT}/redux/${id}Actions.js`, 'CONST_ACTION_TYPE', `export const ${NAME} = "${NAME}"` ),
 					() => {
 						return assistant.render( '../templates/BasicActionFunc.js', options )
-						.then( code => assistant.insertCodeBlock( `${DIR_CLIENT}/actions/${id}Actions.js`, 'ACTION', code ) )
+						.then( code => assistant.insertCodeBlock( `${DIR_CLIENT}/redux/${id}Actions.js`, 'ACTION', code ) )
 					},
-					() => assistant.insertCodeBlock( `${DIR_CLIENT}/reducers/${id}Reducer.js`, 'IMPORT_ACTION_TYPE', `\t${NAME},` ),
+					() => assistant.insertCodeBlock( `${DIR_CLIENT}/redux/${id}Reducer.js`, 'IMPORT_ACTION_TYPE', `\t${NAME},` ),
 					() => {
 						return assistant.render( '../templates/BasicReducerFunc.js', options )
-						.then( code => assistant.insertCodeBlock( `${DIR_CLIENT}/reducers/${id}Reducer.js`, 'REDUCER', code ) )
+						.then( code => assistant.insertCodeBlock( `${DIR_CLIENT}/redux/${id}Reducer.js`, 'REDUCER', code ) )
 					}
 				], handler => handler() );
 				// inject the variable
